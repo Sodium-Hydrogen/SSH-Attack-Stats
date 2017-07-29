@@ -9,7 +9,9 @@ I am not liable for any attempts against your ssh whether successful or not.
 ## Installation ##
 
 Simply navigate into the directory with all the files and run 
-``` sh install.sh ```
+``` 
+sh install.sh
+```
 
 If you want the stats to be higher or lower then just replace the 42 on the file 42-log-stats and in the install.sh file. <br>
 
