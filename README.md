@@ -4,6 +4,6 @@ This will work the best if you have fail2ban and [GeoIP][geoipurl] set up and al
 
 With SSH allowing username and passwords it is a good idea to disable the root account and to allow logging in to only one account with an odd username and a very long password.<br>
 
-I am not liable for any successful attemps agianst your ssh
+I am not liable for any attempts against your ssh whether successful or not
 
 [geoipurl]: https://www.axllent.org/docs/view/ssh-geoip/
