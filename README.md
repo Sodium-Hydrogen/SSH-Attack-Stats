@@ -31,7 +31,7 @@ This is a list of the default Ubuntu MOTD files<br>
 [Mike Julander][mikeurl]
 
 #### License ####
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 [geoipurl]: https://www.axllent.org/docs/view/ssh-geoip/
 [mikeurl]: https://mikej.tech
