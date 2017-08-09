@@ -43,6 +43,9 @@ This is a list of the default Ubuntu MOTD files<br>
 * 98-fsck-at-reboot
 * 98-reboot-required
 
+### Screenshot ###
+![Screenshot](Screenshot.png?raw=true)
+
 #### Authors ####
 [Mike Julander][mikeurl]
 
