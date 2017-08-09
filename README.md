@@ -30,7 +30,7 @@ Simply navigate into the directory with all the files and run
 ``` 
 sh install.sh
 ```
-
+If you want to filter out results then you will modify the 42-log-stats file before installing
 If you want the stats to be higher or lower then just replace the 42 on the file 42-log-stats and in the install.sh file. <br>
 
 When replacing it, the higher the number the lower it will appear in MOTD.<br>
