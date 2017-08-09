@@ -6,6 +6,24 @@ With SSH allowing username and passwords it is a good idea to disable the root a
 
 I am not liable for any attempts against your ssh whether successful or not.
 
+## Syntax ##
+
+This program takes arguments or it won't display any information.
+To have it display a specific file it must be specified as follows<br>
+* Username and tries -> ```ssh```
+* GeoIp blocking -> ```geoip```
+* Fail2Ban jail counting -> ```f2b```
+Additionally if you use the ```-f``` argument the program will filter out some results from the list you specify. ex.<br>
+```
+/usr/local/bin/log-stats -f 1 ssh root
+```
+Tells the program to display usernames and tries but filter out every instance of root.
+You can add more by increasing the number like this.
+```
+/usr/local/bin/log-stats -f 2 ssh root pi
+```
+The filter does not work on fail2Ban because there is only one line of information shown
+
 ## Installation ##
 
 Simply navigate into the directory with all the files and run 
