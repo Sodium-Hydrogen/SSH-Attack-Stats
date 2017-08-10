@@ -1,5 +1,0 @@
-#!/bin/bash
-
-echo
-/usr/local/bin/log-stats.bin -f 1 ssh sodium geoip f2b
-echo
