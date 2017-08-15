@@ -1,5 +1,5 @@
 #!/bin/bash
 
 echo
-/usr/local/bin/log-stats.bin ssh geoip f2b
+/usr/local/bin/log-stats ssh geoip f2b
 echo
