@@ -242,7 +242,7 @@ void displayData(int rows, vector<string> name, vector<int> number, string title
 				position = n;
 			}
 		}
-		cout << name[position] << " - " << number[position] << '\n';
+		cout << " " << name[position] << " - " << number[position] << '\n';
 		name.erase(name.begin() + position);
 		number.erase(number.begin() + position);
 	}
