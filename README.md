@@ -12,7 +12,8 @@ This program takes arguments or it won't display any information.
 To have it display a specific file it must be specified as follows<br>
 * Username and tries -> ```ssh```
 * GeoIp blocking -> ```geoip```
-* Fail2Ban jail counting -> ```f2b``` <br>
+* Fail2Ban jail counting -> ```f2b```
+
 Additionally if you use the ```-f``` argument the program will filter out some results from the list you specify. ex.<br>
 ```
 /usr/local/bin/log-stats -f 1 ssh root
