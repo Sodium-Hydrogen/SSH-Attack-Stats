@@ -135,6 +135,8 @@ int main(int argc, char *argv[]){
 				filter.push_back("reboot");
 				filter.push_back("shutdown");
 				filter.push_back("runlevel");
+			}else{
+				lineCount = 1000;
 			}
 			readUserLogin(logins, lineCount, mode, filter);
 		}
