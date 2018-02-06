@@ -13,18 +13,34 @@ To have it display a specific file it must be specified as follows<br>
 * Username and tries -> ```ssh```
 * GeoIp blocking -> ```geoip```
 * Fail2Ban jail counting -> ```f2b```
+* User logins -> ```login```
 
-Additionally if you use the ```-f``` argument the program will filter out some results from the list you specify. ex.<br>
+```-c``` can be used to declare the number of lines shown. ex.<br>
 ```
-/usr/local/bin/log-stats -f 1 ssh root
+/usr/local/bin/log-stats ssh -c 5
+```
+Usually the ssh argument will display every try in the logs, but when ```-c``` is used it will now only display 5 if possible<br>
+
+```-a``` reports everything for the argument used with it. This is the defualt behavior of ```ssh``` but not ```geoip``` or ```login```. When used with one of the latter two it will display a full list of everything in the logs and for ```login``` it will display some system runtime loging. ex.<br>
+```
+/usr/local/bin/log-stats geoip -a
+```
+
+Additionally if you use the ```-f``` argument the program will filter out some results from the list you specify. ```-f``` takes a minimum of two arguments, the number of items to be filtered and the items being filtered. ex.<br>
+```
+/usr/local/bin/log-stats ssh -f 1 root
 ```
 Tells the program to display usernames and tries but filter out every instance of root.
 You can add more by increasing the number like this.
 ```
-/usr/local/bin/log-stats -f 2 ssh root pi
+/usr/local/bin/log-stats ssh -f 2 root pi
 ```
 The filter does not work on fail2Ban because there is only one line of information shown.
 
+The last argument is the ```-m``` argument that only works with ```login```. It will sort it and display the output in groups so all of one user until the count value is displayed then the next is and so forth. ex.<br>
+```
+/usr/local/bin/log-stats login -m
+```
 ## Installation ##
 
 Simply navigate into the directory with all the files and run.
