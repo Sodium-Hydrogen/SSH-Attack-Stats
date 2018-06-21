@@ -318,11 +318,11 @@ void readUserLogin(const char **fileLoc, int number, string mode, vector<string>
 	char time[29];	/*Mon Jan 01 00:00:00 2018 PST*/
 	size_t found;
 
-	if (file.is_open()) {
-		int nameSize = 7;
-		int ipSize = 8;
+	int nameSize = 7;
+	int ipSize = 8;
 
-		for(int z = 0; z < 2; z++){
+	for(int z = 0; z < 2; z++){
+		if(file.is_open()){
 			while(!file.eof()){
 				vector<string> userinfo;
 				struct utmp log;
@@ -370,16 +370,14 @@ void readUserLogin(const char **fileLoc, int number, string mode, vector<string>
 					}
 				}
 			}
-			file.close();
-			file.open(fileLoc[0], ios::in | ios::binary);
 		}
-		if(results.size() == 0){
-			cout << "No login information found" << endl;
-		}else{
-			sortLoginInfo(results, mode, number, nameSize, ipSize);
-		}
-	} else {
-		cout << "File couldn't be opened" << endl;
+		file.close();
+		file.open(fileLoc[0], ios::in | ios::binary);
+	}
+	if(results.size() == 0){
+		cout << "No login information found" << endl;
+	}else{
+		sortLoginInfo(results, mode, number, nameSize, ipSize);
 	}
 }
 
