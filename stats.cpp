@@ -45,7 +45,30 @@ int main(int argc, char *argv[]){
 	const char* logins[2] = { "/var/log/wtmp",
 	"/var/log/wtmp.1"};
 
-	cout << "SSH Attack Statistics" << '\n';
+	string help = "log-stats STRING [-f N FILTER [FILTER ...]] [-a] [-c COUNT]\n";
+	help  += "\t\t[-m] [STRING ...]\n\n\n";
+	help  += "Requried Arguments\n";
+	help  += "\tSTRING\tMust be either ssh, geoip, f2b, or login\n";
+	help  += "Optional Arguments\n";
+	help  += "\t-h, --help\n\t\tDisplay this message\n";
+	help  += "\t-a\tDisplay everything\n";
+	help  += "\t-c COUNT\n";
+	help  += "\t-f N FILTER\n\t\tN = number of strings to filter\n";
+	help  += "\t\tFILTER = string to filter\n";
+	help  += "\t-m\n\t\tUsed with login. Instead of sorting by time and date\n";
+	help  += "\t\tthe login output will be sorted by users.\n";
+
+	bool print = true;
+
+	for(int i = 0; i < argc && print; i++){
+		if(string(argv[i]) == "-h" || string(argv[i]) == "--help"){
+			cout << help;
+			print = false;
+		}
+	}
+
+	if(print)
+		cout << "SSH Attack Statistics" << '\n';
 
 	string arg = "";
 	string post = "";
@@ -55,8 +78,9 @@ int main(int argc, char *argv[]){
 	string find[4];
 	string message[2];
 	string mode = "default";
+	bool printed = false;
 
-	for(int i = 1; i < argc; i++){
+	for(int i = 1; i < argc && print; i++){
 		int lineCount = -1;
 		bool everything = false;
 		int ran = 0;
@@ -91,6 +115,8 @@ int main(int argc, char *argv[]){
 				mode = "multiUser";
 				i += 1 - ran;
 			}
+			if(post == "-h" || post == "--help"){
+			}
 			if(i+1 < argc){
 				post = string(argv[i+1]);
 			}else{
@@ -102,6 +128,10 @@ int main(int argc, char *argv[]){
 			ran = 1;
 		}while(post.find("-") != -1);
 
+		if(lineCount == -1 && !everything && (arg == "ssh" || arg == "geoip")){
+			lineCount = 15;
+		}
+
 		if(arg == "ssh"){
 			find[0] = "Failed password";	// This string is to do a rough general filter
 			find[1] = "password for ";	// This is the string right before the chunk needed
@@ -110,6 +140,7 @@ int main(int argc, char *argv[]){
 			message[0] = "Username - Tries";
 			//This is collecting the usernames that have been tried that are not enabled to be used to login to ssh
 			logSort(authLog, find, false, message, false, filter, lineCount);
+			printed = true;
 
 		}else if(arg == "geoip"){
 			find[0] = "DENY sshd";
@@ -127,21 +158,26 @@ int main(int argc, char *argv[]){
 				everything = true;
 			}
 			logSort(syslog, find, true, message, everything, filter, lineCount);
+			printed = true;
 		}else if(arg == "f2b"){
 			fail2BanTotal(fail2ban);
+			printed = true;
 		}else if(arg == "login"){
 			if(!everything){
 				filter.push_back("LOGIN");
 				filter.push_back("reboot");
 				filter.push_back("shutdown");
 				filter.push_back("runlevel");
+				filter.push_back("0.0.0.0");
 			}else{
 				lineCount = 1000;
 			}
 			readUserLogin(logins, lineCount, mode, filter);
+			printed = true;
 		}
 	}
-
+	if(!printed && print)
+		cout << "Error required arguments not supplied. -h, --help for help.\n";
 
 	return 0;
 } // End int main()
