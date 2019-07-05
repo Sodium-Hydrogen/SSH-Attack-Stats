@@ -169,6 +169,7 @@ int main(int argc, char *argv[]){
 				filter.push_back("shutdown");
 				filter.push_back("runlevel");
 				filter.push_back("0.0.0.0");
+				filter.push_back("::1");
 			}else{
 				lineCount = 1000;
 			}
