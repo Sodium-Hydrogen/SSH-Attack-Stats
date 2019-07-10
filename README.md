@@ -10,7 +10,8 @@ I am not liable for any attempts against your ssh whether successful or not.
 
 This program takes arguments or it won't display any information.
 To have it display a specific file it must be specified as follows<br>
-* Username and tries -> ```ssh```
+* Username and tries for passwords -> ```ssh```
+* Username and tries for public key -> ```sshkey```
 * GeoIp blocking -> ```geoip```
 * Fail2Ban jail counting -> ```f2b```
 * User logins -> ```login```

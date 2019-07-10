@@ -48,7 +48,7 @@ int main(int argc, char *argv[]){
 	string help = "log-stats STRING [-f N FILTER [FILTER ...]] [-a] [-c COUNT]\n";
 	help  += "\t\t[-m] [STRING ...]\n\n\n";
 	help  += "Requried Arguments\n";
-	help  += "\tSTRING\tMust be either ssh, geoip, f2b, or login\n";
+	help  += "\tSTRING\tMust be either ssh, sshkey, geoip, f2b, or login\n";
 	help  += "Optional Arguments\n";
 	help  += "\t-h, --help\n\t\tDisplay this message\n";
 	help  += "\t-a\tDisplay everything\n";
@@ -128,7 +128,7 @@ int main(int argc, char *argv[]){
 			ran = 1;
 		}while(post.find("-") != -1);
 
-		if(lineCount == -1 && !everything && (arg == "ssh" || arg == "geoip")){
+		if(lineCount == -1 && !everything && (arg == "ssh" || arg == "sshkey" || arg == "geoip")){
 			lineCount = 15;
 		}
 
@@ -137,8 +137,20 @@ int main(int argc, char *argv[]){
 			find[1] = "password for ";	// This is the string right before the chunk needed
 			find[2] = " from";		// This is the string right after the chuck to be displayed
 			find[3] = "invalid user ";	// This is for when some data has extra infomation that needs to be cleared before the chunk
-			message[0] = "Username - Tries";
-			//This is collecting the usernames that have been tried that are not enabled to be used to login to ssh
+			message[0] = "Username - Tries \\ Failed password";
+			//This is collecting the usernames that have been tried that used an incorrect password
+			logSort(authLog, find, false, message, false, filter, lineCount);
+			printed = true;
+
+		}else if(arg == "sshkey"){
+
+			find[0] = "Connection closed by";
+			find[1] = "user ";
+			find[2] = " ";
+			find[3] = "NULL";
+			message[0] = "Username - Tries \\ Failed key";
+
+			//This is collecting the usernames that have been tried that didn't have a valid key
 			logSort(authLog, find, false, message, false, filter, lineCount);
 			printed = true;
 
@@ -192,7 +204,7 @@ void logSort(const char* logFiles[], string sort[], bool conversion, string mess
 		file.open(logFiles[a]);
 		if(file.is_open()){
 			while(getline(file, line)){
-				if(line.find(sort[0]) != -1){
+				if(line.find(sort[0]) != -1 && line.find(sort[1]) != -1){
 					tries = sortData(line, sort[1], sort[2], tries, sort[3], conversion, filter);
 				}
 			}
