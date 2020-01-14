@@ -2,9 +2,23 @@
 A simple script that will run in MOTD on a linux server and will tell you the attack statistics.<br>
 This will work the best if you have fail2ban and [GeoIP][geoipurl] set up and allow access to the SSH login.<br>
 
-With SSH allowing username and passwords it is a good idea to disable the root account and to allow logging in to only one account with an odd username and a very long password.<br>
+* On debian based linux distrobutions fail2ban is in the apt package manager.
+* As of 2020-01-13 the original project geoiplookup has been depricated and a drop in replacement has been written.
+  * Goiplookup can be used with the [GeoIP][geoipurl] instructions by renaming the goiplookup file to geoiplookup.
+  * The database is no longer public for geoip so the new precompiled versions of goiplookup have a key built in. 
+  * Version 0.2.2 didn't work to use the precomplied binaries so I installed an older version and ran `geoiplookup self-update` which worked
+### I highly suggest setting up GeoIP and fail2ban to increase security and remove attack surfaces to your ssh session! ###
+I also suggest:
+* Disable root login
+* Disable password login in favor of large secure keys, etc. RSA 4096
+* If an account must have a password only allow password prompt for that user
+* Non standard usernames do increase security
+* Increase the jail time and find time in fail2ban. (More than a day) 
+
 
 I am not liable for any attempts against your ssh whether successful or not.
+
+__Large log files do slow down the program and could make logining into your server via ssh slow. If this happens you can remove `ssh`, `sshkey` and `geoip` from `/etc/update-motd.d/42-log-stats` to improve prefomance.__
 
 ## Syntax ##
 
